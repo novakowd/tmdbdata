@@ -33,5 +33,12 @@ base_tmdb_request <- function(auth_token = get_auth_token()){
                                              auth_token),
                        .redact = "Authorization"
     ) %>%
-    httr2::req_throttle(rate = 40)
+    httr2::req_error(body = tmdb_error_body) %>%
+    httr2::req_user_agent("tmdbdata (https://github.com/novakowd/tmdbdata)") %>%
+    httr2::req_throttle(rate = 40, realm = "https://api.themoviedb.org/3/")
+}
+{
+  tmdb_error_body <- function(resp) {
+    resp %>% resp_body_json() %>% purrr::pluck("status_message")
+  }
 }

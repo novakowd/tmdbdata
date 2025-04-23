@@ -13,7 +13,9 @@ search_movies(query, ...)
 }
 \description{
 \href{https://developer.themoviedb.org/reference/search-movie}{Search TMDB movie database}
-Search for movies by their original, translated and alternative titles.
+movies by their original, translated and alternative titles.
+}
+\details{
 This function uses \code{\link[=search_movies_response]{search_movies_response()}} to get the data from one page of results,
 then uses \code{\link[=call_tmdb_fn]{call_tmdb_fn()}} and \code{\link[=loop_through_pages]{loop_through_pages()}} to combine data from remaining
 pages

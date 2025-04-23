@@ -1,7 +1,8 @@
 #' search_movies
 #'
 #' [Search TMDB movie database](https://developer.themoviedb.org/reference/search-movie)
-#' Search for movies by their original, translated and alternative titles.
+#' movies by their original, translated and alternative titles.
+#'
 #' This function uses [search_movies_response()] to get the data from one page of results,
 #' then uses [call_tmdb_fn()] and [loop_through_pages()] to combine data from remaining
 #' pages
