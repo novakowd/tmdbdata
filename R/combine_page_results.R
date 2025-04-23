@@ -1,6 +1,6 @@
-call_tmdb_fn <- function(.f,
-                         args = list()) {
-  first_page_response <- .f(!!!args)
+combine_page_results <- function(.f,
+                                 args = list()) {
+  first_page_response <- do.call(.f, args = args)
 
   total_pages <- ifelse("num_pages" %in% names(args),
     min(

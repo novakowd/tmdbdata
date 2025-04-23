@@ -10,7 +10,8 @@ base_tmdb_request(auth_token = get_auth_token())
 \item{auth_token}{}
 }
 \value{
-httr2 request object with base URL, Authentication, and Throttling parameters set
+httr2 request object with base URL, Authentication, and Throttling
+parameters set
 }
 \description{
 base_tmdb_request

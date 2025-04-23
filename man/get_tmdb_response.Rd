@@ -4,10 +4,10 @@
 \alias{get_tmdb_response}
 \title{get_tmdb_response}
 \usage{
-get_tmdb_response(path_args, ...)
+get_tmdb_response(path_args = NULL, auth_token = get_auth_token(), ...)
 }
 \arguments{
-\item{path_args}{Additional arguments appended to the base API url}
+\item{path_args}{List or Character Vector - Additional arguments appended to the base API url}
 
 \item{...}{Other arguments passed as named query parameters}
 }

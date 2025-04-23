@@ -13,22 +13,26 @@
 #'
 #' @examples
 discover_movies <- function(num_pages = 5,
-                            ...){
+                            ...) {
+  args <- list(
+    num_pages = num_pages,
+    ...
+  )
 
-  args <- list(num_pages = num_pages,
-               ...)
-
-  call_tmdb_fn(discover_movies_response,
-               args)
-
+  combine_page_results(
+    discover_movies_response,
+    args
+  )
 }
 
 
 
-discover_movies_response <- function(...){
-
-  get_tmdb_response(path_args = c("discover",
-                                  "movie"),
-                    ...)
-
+discover_movies_response <- function(...) {
+  get_tmdb_response(
+    path_args = c(
+      "discover",
+      "movie"
+    ),
+    ...
+  )
 }

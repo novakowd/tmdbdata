@@ -2,22 +2,46 @@
 % Please edit documentation in R/search_movies.R
 \name{search_movies}
 \alias{search_movies}
+\alias{search_movies_response}
 \title{search_movies}
 \usage{
 search_movies(query, ...)
+
+search_movies_response(query, ..., auth_token = get_auth_token())
 }
 \arguments{
-\item{query}{Required search parameter}
+\item{query}{Required. A character vector with one element}
 
-\item{...}{Other optional search parameters}
+\item{...}{Other Optional Query Parameters passed to the \href{https://developer.themoviedb.org/reference/search-movie}{search/movies/ resource}. The
+only required parameter is \code{query}}
 }
 \description{
-\href{https://developer.themoviedb.org/reference/search-movie}{Search TMDB movie database}
-Search for movies by their original, translated and alternative titles.
-This function uses \code{\link[=search_movies_response]{search_movies_response()}} to get the data from one page of results,
-then uses \code{\link[=call_tmdb_fn]{call_tmdb_fn()}} and \code{\link[=loop_through_pages]{loop_through_pages()}} to combine data from remaining
-pages
+\strong{\code{search_movies()}} is a wrapper function, which uses \code{\link[=combine_page_results]{combine_page_results()}} to:
+\itemize{
+\item run \code{search_movies_response(query)} to get the response of the first
+page and determine how many total pages/results the \code{query} returned
+\itemize{
+\item takes the \verb{$total_pages} from the response,
+\item Compares with the \emph{optional} argument \code{num_pages}
+}
+\item if more pages are desired, uses \code{\link[=loop_through_pages]{loop_through_pages()}} to combine
+rows from all pages, then returns one \code{data.frame} object
+}
+
+\strong{\code{search_movies_response()}} returns a named list from one page of the JSON
+response (default \code{page = 1}). The response contains:
+\itemize{
+\item \verb{$page} - (an \code{integer} value)
+\item \verb{$results} - (a \code{data.frame} object representing one page of results,
+typically 20 entries per page)
+\item \verb{$total_pages} - (an \code{integer} value)
+\item \verb{$total_results} - (an \code{integer} value)
+}
+}
+\details{
+\href{https://developer.themoviedb.org/reference/search-movie}{Search TMDB movie database} movies by
+their original, translated and alternative titles.
 }
 \seealso{
-\code{\link[=search_movies_response]{search_movies_response()}}, \code{\link[=get_tmdb_response]{get_tmdb_response()}}, \code{\link[=call_tmdb_fn]{call_tmdb_fn()}}, \code{\link[=unique]{unique()}}
+\code{\link[=get_tmdb_response]{get_tmdb_response()}}, \code{\link[=call_tmdb_fn]{call_tmdb_fn()}}, \code{\link[=unique]{unique()}}
 }

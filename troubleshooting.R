@@ -1,3 +1,4 @@
+devtools::load_all()
 library(tidyverse)
 library(httr2)
 library(jsonlite)

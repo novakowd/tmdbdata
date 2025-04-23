@@ -3,11 +3,19 @@ Title: Get Data from The Movie Database (TMDB) via the API
 Version: 0.0.0.9000
 Authors@R: 
     person("Dylan", "Novakowski", , "dylannovakowski@gmail.com", role = c("aut", "cre"))
-Description: Uses the TMDB API to gather movie/tv show data from The Movie Database
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Description: Uses the TMDB API to gather movie/tv show data from The Movie Database.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    magrittr
+    askpass,
+    dplyr,
+    glue,
+    httr2,
+    magrittr,
+    purrr,
+    stringr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

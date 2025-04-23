@@ -10,22 +10,26 @@
 #' @export
 #'
 #' @examples
-search_collection <- function(query, ...){
+search_collection <- function(query, ...) {
+  args <- list(
+    query = query,
+    ...
+  )
 
-  args <- list(query = query,
-               ...)
-
-  call_tmdb_fn(search_collection_response,
-               args)
-
+  combine_page_results(
+    search_collection_response,
+    args
+  )
 }
 
 
 
-search_collection_response <- function(...){
-
-  get_tmdb_response(path_args = c("search",
-                                  "collection"),
-                    ...)
-
+search_collection_response <- function(...) {
+  get_tmdb_response(
+    path_args = c(
+      "search",
+      "collection"
+    ),
+    ...
+  )
 }
