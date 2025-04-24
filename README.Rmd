@@ -50,28 +50,20 @@ This package must be supplied with an **API Read Access Token** for the function
 
 Otherwise the API server will throw an error message:
 
+```{r echo=F}
+invalid_auth_token <- "INVALID_AUTH_TOKEN"
+```
+
+
 ```{r error=T}
 search_movies(query = "Avengers",
-              auth_token = "invalid") # Example Only, never hardcode secrets (see below)
+              auth_token = invalid_auth_token)
 ```
 
 To obtain an Access Token, follow the steps in the [***API's documentation***](https://developer.themoviedb.org/docs/authentication-application).\
-Once you have the access token, **DO NOT** hardcode it into a script
+Once you have `YOUR_AUTH_TOKEN`, store it in a [environment variable](https://httr2.r-lib.org/articles/wrapping-apis.html#user-supplied-key)
 
-``` r
-# ❗ NEVER DO THIS
-auth_token <- "YOUR_AUTH_TOKEN"
-```
-
-❗ **DANGER**: Hardcoding secrets/passwords can pose [significant security risks](https://docs.github.com/en/get-started/learning-to-code/storing-your-secrets-safely)
-
-Instead, it is better to store the Access Token as a *`environment variable`*, which is retrieved automatically via the [function defaults](https://httr2.r-lib.org/articles/wrapping-apis.html#user-supplied-key) **`auth_token = get_auth_token()`**
-
-Here are **2** options that can help set the `TMBD_AUTH_TOKEN` environment variable:
-
-### Option 1: `.Renviron` (RECOMMENDED)
-
-This is the preferred method because the token will be available in future R sessions.
++   storing in the `.Renviron` file means the variable will be available in future R sessions
 
 ``` r
 usethis::edit_r_environ() 
@@ -79,14 +71,7 @@ usethis::edit_r_environ()
 # then save the file
 ```
 
-### Option 2: `set_auth_token()` (Temporary Solution)
-
-This needs to be run every time R is opened/restarted, so **Option 1** is preferred.
-
-``` r
-set_auth_token() 
-# type `YOUR_AUTH_TOKEN` in dialogue, Need to re-run every session
-```
+> `set_auth_token()` will also set the `TMDB_AUTH_TOKEN` environment variable, but it is only specific to the session you're working in
 
 ***
 
@@ -104,13 +89,18 @@ avenger_movies %>% glimpse()
 ```{r}
 avenger_movie_details <- movie_details(
   movie_id = avenger_movies$id[1],
-  append_to_response = "videos,images,keywords"
+  append_to_response = "keywords"
 )
 
-avenger_movie_details$belongs_to_collection
+avenger_movie_details$title
 avenger_movie_details$runtime %>% paste("minutes")
 avenger_movie_details$genres
+avenger_movie_details$keywords$keywords
 ```
+
+##### TODO: Movie Poster
+
+##### TODO: Movie Cast/Director?
 
 ***
 
@@ -202,10 +192,10 @@ data.frame(class = unlist(lapply(response,class)),
 names(response$headers)
 ```
 
-The actual 'Data' that we're looking for is in the `$body` element, though it appears to be in a raw hexadecimal format:
+The actual 'Data' that we're looking for is in the `$body` element, though it is not in a usable format yet:
 
 ```{r}
-cat(response$body[1:30], "...")
+response$body %>% glimpse()
 ```
 
 ## Response Body

@@ -3,10 +3,6 @@ README for `tmdbdata` R Package
 
 - [Installation](#installation)
   - [Authentication](#authentication)
-    - [Option 1: `.Renviron`
-      (RECOMMENDED)](#option-1-renviron-recommended)
-    - [Option 2: `set_auth_token()` (Temporary
-      Solution)](#option-2-set_auth_token-temporary-solution)
 - [Examples](#examples)
 - [TMDB data functions with
   `httr2::functions()`](#tmdb-data-functions-with-httr2functions)
@@ -54,7 +50,7 @@ Otherwise the API server will throw an error message:
 
 ``` r
 search_movies(query = "Avengers",
-              auth_token = "invalid") # Example Only, never hardcode secrets (see below)
+              auth_token = invalid_auth_token)
 #> Error in `httr2::req_perform()`:
 #> ! HTTP 401 Unauthorized.
 #> • Invalid API key: You must be granted a valid key.
@@ -62,30 +58,11 @@ search_movies(query = "Avengers",
 
 To obtain an Access Token, follow the steps in the [***API’s
 documentation***](https://developer.themoviedb.org/docs/authentication-application).  
-Once you have the access token, **DO NOT** hardcode it into a script
+Once you have `YOUR_AUTH_TOKEN`, store it in a [environment
+variable](https://httr2.r-lib.org/articles/wrapping-apis.html#user-supplied-key)
 
-``` r
-# ❗ NEVER DO THIS
-auth_token <- "YOUR_AUTH_TOKEN"
-```
-
-❗ **DANGER**: Hardcoding secrets/passwords can pose [significant
-security
-risks](https://docs.github.com/en/get-started/learning-to-code/storing-your-secrets-safely)
-
-Instead, it is better to store the Access Token as a
-*`environment variable`*, which is retrieved automatically via the
-[function
-defaults](https://httr2.r-lib.org/articles/wrapping-apis.html#user-supplied-key)
-**`auth_token = get_auth_token()`**
-
-Here are **2** options that can help set the `TMBD_AUTH_TOKEN`
-environment variable:
-
-### Option 1: `.Renviron` (RECOMMENDED)
-
-This is the preferred method because the token will be available in
-future R sessions.
+- storing in the `.Renviron` file means the variable will be available
+  in future R sessions
 
 ``` r
 usethis::edit_r_environ() 
@@ -93,15 +70,8 @@ usethis::edit_r_environ()
 # then save the file
 ```
 
-### Option 2: `set_auth_token()` (Temporary Solution)
-
-This needs to be run every time R is opened/restarted, so **Option 1**
-is preferred.
-
-``` r
-set_auth_token() 
-# type `YOUR_AUTH_TOKEN` in dialogue, Need to re-run every session
-```
+> `set_auth_token()` will also set the `TMDB_AUTH_TOKEN` environment
+> variable, but it is only specific to the session you’re working in
 
 ------------------------------------------------------------------------
 
@@ -137,21 +107,11 @@ avenger_movies %>% glimpse()
 ``` r
 avenger_movie_details <- movie_details(
   movie_id = avenger_movies$id[1],
-  append_to_response = "videos,images,keywords"
+  append_to_response = "keywords"
 )
 
-avenger_movie_details$belongs_to_collection
-#> $id
-#> [1] 86311
-#> 
-#> $name
-#> [1] "The Avengers Collection"
-#> 
-#> $poster_path
-#> [1] "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg"
-#> 
-#> $backdrop_path
-#> [1] "/zuW6fOiusv4X9nnW3paHGfXcSll.jpg"
+avenger_movie_details$title
+#> [1] "Avengers: Infinity War"
 avenger_movie_details$runtime %>% paste("minutes")
 #> [1] "149 minutes"
 avenger_movie_details$genres
@@ -159,7 +119,26 @@ avenger_movie_details$genres
 #> 1  12       Adventure
 #> 2  28          Action
 #> 3 878 Science Fiction
+avenger_movie_details$keywords$keywords
+#>        id                            name
+#> 1    2858                       sacrifice
+#> 2    2343                           magic
+#> 3    9715                       superhero
+#> 4    9717                  based on comic
+#> 5    9882                           space
+#> 6   10141                     battlefield
+#> 7   14900                        genocide
+#> 8   15252                  magical object
+#> 9   33637                     super power
+#> 10 155030                  superhero team
+#> 11 179430             aftercreditsstinger
+#> 12 180547 marvel cinematic universe (mcu)
+#> 13 231295                          cosmic
 ```
+
+##### TODO: Movie Poster
+
+##### TODO: Movie Cast/Director?
 
 ------------------------------------------------------------------------
 
@@ -331,11 +310,11 @@ names(response$headers)
 ```
 
 The actual ‘Data’ that we’re looking for is in the `$body` element,
-though it appears to be in a raw hexadecimal format:
+though it is not in a usable format yet:
 
 ``` r
-cat(response$body[1:30], "...")
-#> 7b 22 70 61 67 65 22 3a 31 2c 22 72 65 73 75 6c 74 73 22 3a 5b 7b 22 61 64 75 6c 74 22 3a ...
+response$body %>% glimpse()
+#>  raw [1:12038] 7b 22 70 61 ...
 ```
 
 ## Response Body
