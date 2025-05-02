@@ -1,45 +1,47 @@
 library(tidyverse)
 load_all()
 
-all_media <- load_imdb_table("title_basics",
-                             use_cached_data = T)
-ratings <- load_imdb_table("title_ratings",
-                           use_cached_data = F)
-episodes <- load_imdb_table("title_episode",
-                            use_cached_data = T)
+imdb_data <- load_imdb_data(use_cached_data = T)
 
-rated_media <- all_media %>%
-  right_join(ratings,
-             by = 'tconst') %>%
-  mutate(across(contains("Year"), as.integer)) %>%
-  suppressWarnings() %>%
-  filter(startYear > 1930 | is.na(startYear)) %>%
-  select(titleType,
-         title = primaryTitle,
+
+movies <- imdb_data$all_other_media %>%
+  filter(!grepl("Game", titleType),
+         !grepl("Series", titleType))
+
+
+# top 10 by year
+movies_votes <- movies %>%
+  group_by(startYear) %>%
+  mutate(rank_in_year = rank(-numVotes)) %>%
+  filter(rank_in_year <= 10) %>%
+  arrange(desc(startYear),rank_in_year) %>%
+  mutate(numVotes = numVotes %>%
+           prettyNum(big.mark = ",")) %>%
+  select(startYear,
+         rank_in_year,
+         title,
+         numVotes,
+         averageRating,
+         everything())
+
+movies_ranks <- movies %>%
+  mutate(min_votes = case_when(startYear == 2025 ~
+                                 20000,
+                               T ~ 100000)) %>%
+  filter(numVotes > min_votes) %>%
+  group_by(startYear) %>%
+  mutate(rank_in_year = rank(-averageRating,
+                             ties.method = "first")) %>%
+  filter(rank_in_year <= 10) %>%
+  arrange(desc(startYear),rank_in_year) %>%
+  mutate(numVotes = numVotes %>%
+           prettyNum(big.mark = ",")) %>%
+  select(startYear,
+         rank_in_year,
+         title,
          averageRating,
          numVotes,
-         genres,
-         runtimeMinutes,
-         startYear,
-         endYear,
-         tconst)
+         everything())
 
-
-movies_tvseries <- rated_media %>%
-  filter(titleType != "tvEpisode")
-
-
-movies_tvseries %>%
-  select(parentTconst = tconst,
-         series_name = )
-
-
-tv_episodes <- rated_media %>%
-  filter(titleType == "tvEpisode")
-  left_join(movies_tvseries %>%
-              select(tconst,
-                     series = title,
-                     series_),
-            by = join_by(parentTconst == tconst)) %>%
-  mutate(across(contains("Number"), as.integer)) %>%
-  suppressWarnings()
+test <- movies %>%
+  filter(startYear == 2025)
