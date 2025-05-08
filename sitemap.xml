@@ -2,9 +2,12 @@
 <url><loc>https://novakowd.github.io/tmdbdata/404.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/LICENSE-text.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/LICENSE.html</loc></url>
+<url><loc>https://novakowd.github.io/tmdbdata/articles/index.html</loc></url>
+<url><loc>https://novakowd.github.io/tmdbdata/articles/tmdbdata.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/authors.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/index.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/reference/base_tmdb_request.html</loc></url>
+<url><loc>https://novakowd.github.io/tmdbdata/reference/decrypt_auth_token.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/reference/discover_movies.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/reference/get_tmdb_response.html</loc></url>
 <url><loc>https://novakowd.github.io/tmdbdata/reference/index.html</loc></url>
