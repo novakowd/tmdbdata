@@ -78,29 +78,29 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">imdb_data</span> <span class="op">&lt;-</span> <span class="fu">load_imdb_data</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; creating ./cache_imdb/ directory</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">1.84 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">3.61 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">959 MB</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">959.2 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
-<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">2296.9 MB</span>. - 11,639,217 rows x 9 columns</span></span>
+<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">2297.3 MB</span>. - 11,641,054 rows x 9 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/title_basics.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">770.6 MB</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.24 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.17 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">26 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
 <span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">125.4 MB</span>. - 1,565,832 rows x 3 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/title_ratings.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">22.2 MB</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.45 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">1.87 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">223.8 MB</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">223.9 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
-<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">834.2 MB</span>. - 8,956,096 rows x 4 columns</span></span>
+<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">834.4 MB</span>. - 8,957,423 rows x 4 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/title_episode.fst</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">203.8 MB</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">203.9 MB</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Combining data from IMDB tables...</span></span>
-<span><span class="co">#&gt; • TV Episodes: 795,353 rows x 12 columns</span></span>
+<span><span class="co">#&gt; • TV Episodes: 795,356 rows x 12 columns</span></span>
 <span><span class="co">#&gt; • Rated Media: 1,545,634 rows x 9 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/imdb_tv_episodes.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">62.2 MB</span>.</span></span>
@@ -138,20 +138,19 @@
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">prettyNum</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">count_by_type</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span></span>
 <span><span class="co">#&gt;    titleType    count  </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> tvEpisode    795,353</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> movie        322,090</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> tvEpisode    795,356</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> movie        322,089</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> short        158,148</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tvSeries     103,867</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tvSeries     103,868</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> video        56,570 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> tvMovie      55,345 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> tvMiniSeries 20,389 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> videoGame    18,145 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> tvSpecial    13,288 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> tvShort      2,437  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> <span style="color: #BB0000;">NA</span>           2</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> tvMovie      55,343 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> tvMiniSeries 20,392 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> videoGame    18,144 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> tvSpecial    13,287 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> tvShort      2,437</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Reorder titleTypes for future plots</span></span>
 <span><span class="va">rated_media</span><span class="op">$</span><span class="va">titleType</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">rated_media</span><span class="op">$</span><span class="va">titleType</span>,</span>
