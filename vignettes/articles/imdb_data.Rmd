@@ -158,9 +158,7 @@ tv_episodes %>%
 ```
 
 ## Episode Heatmap
-```{r Episode Heatmap, fig.width=10, fig.height=8}
-#| fig.alt = "Episode Heatmap of selected series, colored by IMDB Rating."
-
+```{r Episode Heatmap code, fig.width=10, fig.height=8}
 series_id <- "tt0096697" # id for "The Simpsons"
 
 series_episodes <- tv_episodes %>% 
@@ -196,7 +194,8 @@ episode_heatmap <- plot_eps %>%
              # color = episode_rating,
              fill = episode_rating)) + 
   geom_polygon(aes(x=x, y=y)) +         #COORDINATES USED HERE
-  geom_text(aes(label = episode_rating)) + 
+  geom_text(aes(label = episode_rating),
+            size = 2) + 
   scale_fill_distiller(palette = 'RdYlGn',
                        direction = 1,
                        limits = c(5,10),
@@ -217,11 +216,12 @@ episode_heatmap <- plot_eps %>%
         plot.title = element_text(size = 20, face = "bold"),
         axis.title = element_text(size = 20),
         axis.text = element_text(face = "bold",
-                                 size = 15))
+                                 size = 7))
 ```
 
 ### Heatmap
-```{r}
+```{r episode heatmap plot}
+#| fig.alt = "Episode Heatmap of selected series, colored by IMDB Rating."
 episode_heatmap
 ```
 
