@@ -10,17 +10,17 @@ load_imdb_data <- function(use_cached_data = T,
 
   if(use_cached_data == T){
     cache_paths <- sapply(c("imdb_tv_episodes",
-                            "imdb_all_other_media"),
+                            "imdb_rated_media"),
                           fst_path,
                           cache_dir)
 
     if(all(file.exists(cache_paths))){
       tv_episodes <- get_cached_data(cache_paths[1])
 
-      all_other_media <- get_cached_data(cache_paths[2])
+      rated_media <- get_cached_data(cache_paths[2])
 
       return(list(tv_episodes = tv_episodes,
-                  all_other_media = all_other_media))
+                  rated_media = rated_media))
     } else {
       rlang::inject(combine_imdb_data(!!!args))
     }
@@ -99,16 +99,16 @@ combine_imdb_data <- function(cache_results,
   cli::cli_li("TV Episodes: {dim(imdb_data$tv_episodes)[1] %>%
               prettyNum(big.mark = ',')} rows x
               {dim(imdb_data$tv_episodes)[2]} columns")
-  cli::cli_li("Other Media: {dim(imdb_data$all_other_media)[1] %>%
+  cli::cli_li("Rated Media: {dim(imdb_data$rated_media)[1] %>%
               prettyNum(big.mark = ',')} rows x
-              {dim(imdb_data$all_other_media)[2]} columns")
+              {dim(imdb_data$rated_media)[2]} columns")
 
   if(cache_results){
     cache_imdb_table(imdb_data$tv_episodes,
                      cache_path = fst_path("imdb_tv_episodes",
                                            cache_dir))
-    cache_imdb_table(imdb_data$all_other_media,
-                     cache_path = fst_path("imdb_all_other_media",
+    cache_imdb_table(imdb_data$rated_media,
+                     cache_path = fst_path("imdb_rated_media",
                                            cache_dir))
   }
 
@@ -133,17 +133,13 @@ combine_imdb_data <- function(cache_results,
 
     rated_media <- filter_to_relevant_media(imdb_tables)
 
-    all_other_media <- rated_media %>%
-      dplyr::filter(titleType != "tvEpisode")
-
-
     tv_episodes <- rated_media %>%
       get_episode_and_series_data(
         imdb_tables$episodes)
 
 
     return(list(tv_episodes = tv_episodes,
-                all_other_media = all_other_media))
+                rated_media = rated_media))
   }
 
   {
@@ -187,7 +183,7 @@ combine_imdb_data <- function(cache_results,
                            dplyr::select(tconst,
                                          series_name = title,
                                          endYear),
-                         by = join_by(parentTconst == tconst)) %>%
+                         by = dplyr::join_by(parentTconst == tconst)) %>%
         dplyr::mutate(dplyr::across(
           dplyr::contains("Number"), as.integer)) %>%
         suppressWarnings()
@@ -356,6 +352,11 @@ load_imdb_table <- function(file_name = c("title_basics",
     }
 
     read_tsv_file <- function(file_path){
+      fsize <- file.size(file_path)
+
+      cli::cli_alert_success(".tsv Size: {.emph
+                             {round(fsize/1024/1024,1)} MB}.")
+
       cli::cli_text("Reading .tsv file...")
       data <- data.table::fread(file_path,
                                 quote = "")
