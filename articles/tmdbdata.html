@@ -102,7 +102,7 @@ Limits Documentation</strong></a>
 <span><span class="co">#&gt;         httr2::req_error(body = tmdb_error_body) %&gt;% httr2::req_user_agent("tmdbdata (https://github.com/novakowd/tmdbdata)") %&gt;% </span></span>
 <span><span class="co">#&gt;         httr2::req_throttle(rate = 40, realm = "https://api.themoviedb.org/3/")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x558de7635720&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55f3cd29b620&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:tmdbdata&gt;</span></span></code></pre></div>
 <blockquote>
 <table class="table">
@@ -233,7 +233,7 @@ inspecting closer:</p>
 <span><span class="co">#&gt; method          character      1</span></span>
 <span><span class="co">#&gt; url             character      1</span></span>
 <span><span class="co">#&gt; status_code       integer      1</span></span>
-<span><span class="co">#&gt; headers     httr2_headers     17</span></span>
+<span><span class="co">#&gt; headers     httr2_headers     18</span></span>
 <span><span class="co">#&gt; body                  raw  11767</span></span>
 <span><span class="co">#&gt; request     httr2_request      8</span></span>
 <span><span class="co">#&gt; cache         environment      0</span></span></code></pre></div>
@@ -243,7 +243,7 @@ inspecting closer:</p>
 <span><span class="co">#&gt;  [5] "server"           "cache-control"    "x-memc"           "x-memc-key"      </span></span>
 <span><span class="co">#&gt;  [9] "x-memc-age"       "x-memc-expires"   "vary"             "x-cache"         </span></span>
 <span><span class="co">#&gt; [13] "via"              "x-amz-cf-pop"     "alt-svc"          "x-amz-cf-id"     </span></span>
-<span><span class="co">#&gt; [17] "vary"</span></span></code></pre></div>
+<span><span class="co">#&gt; [17] "age"              "vary"</span></span></code></pre></div>
 <p>The actual ‘Data’ that we’re looking for is in the <code>$body</code>
 element, though it is not in a usable format yet:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
