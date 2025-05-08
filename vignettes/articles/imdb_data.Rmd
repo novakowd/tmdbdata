@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 ```
 
 # Load Packages and Data
-```{r results=F, collapse=T, warning=F, message=F}
+```{r load pkgs, results=F, collapse=T, warning=F, message=F}
 library(tmdbdata)
 library(dplyr)
 library(tidyr)
@@ -20,18 +20,19 @@ library(ggridges)
 library(scales)
 ```
 
-```{r results=F, warning=F}
+```{r load imdb data, results=F, warning=F}
 imdb_data <- load_imdb_data()
 rated_media <- imdb_data$rated_media %>% mutate(runtimeMinutes = as.double(runtimeMinutes))
 tv_episodes <- imdb_data$tv_episodes
 ```
 
 # Determine data structure
-```{r}
+```{r rated media glimpse}
 rated_media %>% glimpse()
 ```
+
 # Number of observations
-```{r}
+```{r count by titleType}
 count_by_type <- rated_media %>% 
   group_by(titleType) %>% 
   summarise(count = n()) %>% 
@@ -43,14 +44,17 @@ count_by_type
 ```
 
 
-```{r}
+```{r Reorder titleType as factor}
 # Reorder titleTypes for future plots
 rated_media$titleType <- factor(rated_media$titleType,
                                 levels = count_by_type$titleType)
 ```
 
 ## Rating vs Votes
-```{r fig.width=8}
+```{r ratings vs votes bin count heatmap, fig.width=8}
+#| fig.alt = "2D Bin Count Heatmap of number of votes versus IMDB Rating,
+#|  faceted by titleType."
+
 rated_media %>% 
   ggplot(aes(x=numVotes, y=averageRating)) + 
   geom_bin_2d()+
@@ -62,13 +66,15 @@ rated_media %>%
   labs(title = "Rating vs #Votes") +
   facet_wrap(~ titleType,
              ncol = 3)
-
 ```
+
 ## Rating vs Runtime
-```{r fig.width=8}
+```{r ratings vs runtime bin count heatmap, fig.width=8}
+#| fig.alt = "2D Bin Count Heatmap of Runtime in Minutes versus IMDB Rating,
+#|  faceted by titleType."
+
 rated_media %>% 
   filter(runtimeMinutes < 3*60) %>% 
-  # filter(titleType != "tvEpisode") %>%
   ggplot(aes(x=runtimeMinutes, y=averageRating)) + 
   geom_bin_2d()+
   scale_x_continuous(breaks = seq(0,300,60),
@@ -81,7 +87,6 @@ rated_media %>%
   labs(title = "Rating vs Runtime") +
   facet_wrap(~ titleType,
              ncol = 3)
-
 ```
 
 
@@ -89,7 +94,10 @@ rated_media %>%
 We can see vertical 'stripes' of data in above plot, suggesting that the underlying distributions may be of interest.
 
 ## Runtime
-```{r message=F, fig.width=8}
+```{r distributions of runtime, message=F, fig.width=8}
+#| fig.alt = "Ridgline Plot of Runtime Densities in Minutes versus titleType.
+#|  colored by titleType."
+
 rated_media %>% 
   mutate(titleType = fct_rev(as_factor(titleType))) %>% 
   filter(runtimeMinutes < 3*60) %>%
@@ -109,7 +117,10 @@ rated_media %>%
 
 
 ## Release Year
-```{r warning=F, message=F,fig.width=8}
+```{r distributions of release year, warning=F, message=F,fig.width=8}
+#| fig.alt = "Ridgline Plot of Release year Densities versus titleType,
+#|  colored by titleType."
+
 rated_media %>% 
   mutate(titleType = (as_factor(titleType))) %>% 
   filter(startYear > 1950) %>%
@@ -126,7 +137,7 @@ rated_media %>%
 
 # TV Episodes
 ## Top series (by #votes)
-```{r}
+```{r top TV Series by number of votes}
 rated_media %>% 
   filter(grepl('Series',titleType)) %>% 
   select(tconst, everything(), -titleType, titleType) %>% 
@@ -134,7 +145,7 @@ rated_media %>%
 ```
 
 ## Most Episodes
-```{r warning=F, message=F}
+```{r  top TV Series by number of episodes, warning=F, message=F}
 tv_episodes %>%
   group_by(tconst_series, series_name) %>% 
   summarize(seasons = length(unique(seasonNumber)),
@@ -147,7 +158,9 @@ tv_episodes %>%
 ```
 
 ## Episode Heatmap
-```{r fig.width=12}
+```{r Episode Heatmap, fig.width=10, fig.height=8}
+#| fig.alt = "Episode Heatmap of selected series, colored by IMDB Rating."
+
 series_id <- "tt0096697" # id for "The Simpsons"
 
 series_episodes <- tv_episodes %>% 
@@ -176,7 +189,7 @@ plot_eps <- series_episodes %>%
   arrange(seasonNumber, episodeNumber, draw_order)
   
   
-plot_eps %>% 
+episode_heatmap <- plot_eps %>% 
   ggplot(aes(x=episodeNumber,
              y=seasonNumber,
              group = paste(seasonNumber, episodeNumber),
@@ -205,11 +218,17 @@ plot_eps %>%
         axis.title = element_text(size = 20),
         axis.text = element_text(face = "bold",
                                  size = 15))
+```
 
+### Heatmap
+```{r}
+episode_heatmap
 ```
 
 ## Top episodes:
-```{r fig.width=8}
+```{r Top Ten episodes bar chart, fig.width=8}
+#| fig.alt = "Top ten Episodes of selected series, colored by IMDB Rating."
+
 topten_episodes <- series_episodes %>% 
   arrange(desc(episode_rating)) %>% 
   mutate(season_episode = paste0(seasonNumber,
@@ -249,7 +268,10 @@ topten_episodes %>%
 ```
 
 ## Season Ratings:
-```{r}
+```{r Average episode Ratings per season bar chart}
+#| fig.alt = "Average rating of episodes per seasons for the selected series, 
+#|  colored by average episode IMDB Rating."
+
 season_ratings <- series_episodes %>% 
   group_by(seasonNumber) %>% 
   summarize(rating = mean(episode_rating) %>% round(1))
