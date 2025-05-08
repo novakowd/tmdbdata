@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
 
 ```{r setup, message=F}
 library(tmdbdata)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(httr2)
 ```
 
@@ -161,9 +162,9 @@ page2_response <- base_tmdb_request() %>%
   req_perform() %>% 
   resp_body_json(simplifyVector = T) 
 
-page2_response %>% 
-  pluck('results') %>% 
-  glimpse()
+tibble::tibble(results = page2_response$results ) %>% 
+  tidyr::unnest_wider(results) %>% 
+  dplyr::glimpse()
 ```
 
 This 'second page' table contains the *next* `r nrow(page2_response$results)` rows.\
