@@ -14,6 +14,7 @@ Imports:
     tidyr,
     httr2,
     rlang,
+    data.table,
     tibble,
     magrittr,
     purrr
@@ -22,6 +23,7 @@ Suggests:
     withr,
     cli,
     fst,
+    forcats,
     R.utils,
     utils,
     ggridges,
