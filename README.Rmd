@@ -1,8 +1,6 @@
 ---
-title: "README for `tmdbdata` R Package"
-output:
+output: 
   github_document:
-  # html_notebook:
     toc: true
     toc_depth: 3
 ---
@@ -18,31 +16,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Installation
+# tmdbdata
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `tmdbdata` is to serve as an API wrapper and access data from [The Movie Database's (TMDB) Application Programming Interface (API)](https://developer.themoviedb.org/docs/getting-started)
 
+## Installation
+
 You can install the development version of tmdbdata from [GitHub](https://github.com/) with:
 
-
-```{r load tmdb, warning=F, message=F}
-# install.packages("devtools")
-# devtools::install_github("novakowd/tmdbdata")
-# library(tmdbdata)
-
-devtools::load_all() # Development version of library(tmdbdata)
+``` r
+# install.packages("pak")
+pak::pak("novakowd/tmdbdata")
+```
+```{r include=F}
+devtools::load_all()
 ```
 
-
-```{r load other packages, warning=F, message=F}
-# Other packages used in this file
-library(tidyverse)
-library(httr2)
-```
 
 ## Authentication {#authentication}
 
@@ -82,7 +74,7 @@ usethis::edit_r_environ()
 avenger_movies <- search_movies(query = "Avengers", 
                                 num_pages = 1) 
 
-avenger_movies %>% glimpse()
+avenger_movies %>% dplyr::glimpse()
 ```
 
 ##### Get Movie Details
@@ -92,160 +84,5 @@ avenger_movie_details <- movie_details(
   append_to_response = "keywords"
 )
 
-avenger_movie_details$title
-avenger_movie_details$runtime %>% paste("minutes")
-avenger_movie_details$genres
-avenger_movie_details$keywords$keywords
+avenger_movie_details %>% dplyr::glimpse()
 ```
-
-##### TODO: Movie Poster
-
-##### TODO: Movie Cast/Director?
-
-***
-
-# TMDB data functions with `httr2::functions()`
-
-This Package uses [**`httr2` package**](https://httr2.r-lib.org/articles/wrapping-apis.html) functions to generate and perform requests then extract results from the response body.
-
-## Create Basic Request
-
-A **`base_tmdb_request`** is constructed by looking at settings found in the [**API documentation**](https://developer.themoviedb.org/docs/rate-limiting).
-
-For example:
-
--   **`req_headers()`** info in the [**Response Format**](https://developer.themoviedb.org/docs/json-and-jsonp) and [**Authentication**](https://developer.themoviedb.org/docs/authentication-application) Documentation.\
--   **`req_throttle()`** info in the [**Rate Limits Documentation**](https://developer.themoviedb.org/docs/rate-limiting)
-
-```{r}
-base_tmdb_request
-```
-
-> | 📝 | default of `auth_token = get_auth_token()`, will **only** work with option 1 or 2 (environment variable) as mentioned [**above**](#authentication) |
-> |-----------------------------|:------------------------------------------|
-
-The `Authorization` header info is also redacted in the following objects.
-
-------------------------------------------------------------------------
-
-Running the above `base_tmdb_request()` function generates a basic `<httr2_request>` object:
-
-```{r, echo=F}
-base_tmdb_request()
-```
-
-> The functions `req_headers()`, `req_error()`, `req_user_agent()`, and `req_throttle()` do NOT change the URL `https://api.themoviedb.org/3/`, but they DO add other elements to the request such as `Headers`, `Options`, and `Policies`.
-
-------------------------------------------------------------------------
-
-## Append Request Details
-
-The next step is to append a path to the base URL and add relevant arguments to help with the request. Find appropriate arguments by consulting the API Documentation.
-
-The below example looks at the [**Search\>Movie Documentation**](https://developer.themoviedb.org/reference/search-movie) which states:
-
--   there is a **required** parameter called **`query`** and,
--   some other *optional* parameters, some of which have default values.
-
-Let's try putting together a request to **`search`** the **`movies`** for **`Avengers`**:
-
-```{r}
-base_tmdb_request() %>% 
-  req_url_path_append("search","movie") %>% 
-  req_url_query(query = "Avengers")
-```
-
-> The functions `req_url_path_append()` and `req_url_query()` modified the url to **`r base_tmdb_request() %>% req_url_path_append("search", "movie") %>% req_url_query(query = "Avengers") %>% pluck("url")`**
-
-------------------------------------------------------------------------
-
-## Perform Request
-
-Now that we have built a request, **`req_perform()`** allows us to get a `response`.
-
--   **`req_perform()`** submits the request to the server 
-    -     assigning to a `variable` stores the response in-memory, as to not exceed the API's [Rate Limits](https://developer.themoviedb.org/docs/rate-limiting)
-
-```{r}
-response <- base_tmdb_request() %>% 
-  req_url_path_append("search", "movie") %>% 
-  req_url_query(query = "Avengers") %>% 
-  req_perform()
-
-response
-```
-
-### Response Structure
-
-Printing the `<httr2_response>` object above does not show much information, though more information is available when inspecting closer:
-
-```{r}
-class(response)
-```
-
-```{r}
-data.frame(class = unlist(lapply(response,class)),
-           length = unlist(lapply(response,length)))
-```
-
-```{r}
-names(response$headers)
-```
-
-The actual 'Data' that we're looking for is in the `$body` element, though it is not in a usable format yet:
-
-```{r}
-response$body %>% glimpse()
-```
-
-## Response Body
-
-[**`httr2`**](https://httr2.r-lib.org/) provides many [`resp_body_*()`](https://httr2.r-lib.org/reference/resp_body_raw.html) functions to extract the `body` data, depending on the API response format(s).\
-The [**API Documentation**](https://developer.themoviedb.org/docs/json-and-jsonp) states the **only supported response format is `JSON`**, so we use the **`resp_body_json()`** function and use the `simplifyVector = T` to make the resulting lists easier to work with.
-
-```{r}
-body <- response %>% 
-  resp_body_json(simplifyVector = T)
-```
-
-Inspecting the body shows it is a list with 4 elements.  
-
-```{r}
-lapply(body, class)
-```
-
-The `$page`, `$total_pages`, and `$total_results` elements are all `integer` values:
-
-```{r}
-body[c("page", "total_pages", "total_results")]
-```
-
-The `$results` element is a `data.frame`
-
-```{r}
-body$results %>% 
-  glimpse()
-```
-
-### Missing Data
-
-The `body$total_results` is `r body$total_results`, yet the `body$results` only contain `r nrow(body$results)` rows.\
-This is because **`r paste("body$total_pages =", body$total_pages)`** but each response only returns **one** page.
-
-To get the other pages, we need to specify an additional argument **`page = n`** to the response, like so:
-
-```{r}
-page2_response <- base_tmdb_request() %>% 
-  req_url_path_append("search", "movie") %>% 
-  req_url_query(query = "Avengers",
-                page = 2) %>%                ### NEW ARGUMENT
-  req_perform() %>% 
-  resp_body_json(simplifyVector = T) 
-
-page2_response %>% 
-  pluck('results') %>% 
-  glimpse()
-```
-
-This 'second page' table contains the *next* `r nrow(page2_response$results)` rows.\
-To get all rows we need to repeat this until `r paste("page =", page2_response$total_pages)`

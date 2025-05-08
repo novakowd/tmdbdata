@@ -22,6 +22,9 @@ Suggests:
     fst,
     R.utils,
     utils,
-    ggridges
+    ggridges,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
 URL: https://novakowd.github.io/tmdbdata/
+VignetteBuilder: knitr
