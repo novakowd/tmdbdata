@@ -1,3 +1,4 @@
+#' @export
 get_auth_token <- function() {
   token <- Sys.getenv("TMDB_AUTH_TOKEN")
   if (!identical(token, "")) {
