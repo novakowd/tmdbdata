@@ -78,21 +78,21 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">imdb_data</span> <span class="op">&lt;-</span> <span class="fu">load_imdb_data</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; creating ./cache_imdb/ directory</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">3.61 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">1 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">959.2 MB</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">959 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
-<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">2297.3 MB</span>. - 11,641,054 rows x 9 columns</span></span>
+<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">2296.9 MB</span>. - 11,639,217 rows x 9 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/title_basics.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">770.6 MB</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.17 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.09 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">26 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
-<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">125.4 MB</span>. - 1,565,832 rows x 3 columns</span></span>
+<span><span class="co">#&gt; • R Object Size: <span style="font-style: italic;">125.4 MB</span>. - 1,565,473 rows x 3 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/title_ratings.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">22.2 MB</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">1.87 secs</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloaded in: <span style="font-style: italic;">0.3 secs</span></span></span>
 <span><span class="co">#&gt; Unzipping .gz file...</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> .tsv Size: <span style="font-style: italic;">223.9 MB</span>.</span></span>
 <span><span class="co">#&gt; Reading .tsv file...</span></span>
@@ -100,8 +100,8 @@
 <span><span class="co">#&gt; Storing ./cache_imdb/title_episode.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">203.9 MB</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Combining data from IMDB tables...</span></span>
-<span><span class="co">#&gt; • TV Episodes: 795,356 rows x 12 columns</span></span>
-<span><span class="co">#&gt; • Rated Media: 1,545,634 rows x 9 columns</span></span>
+<span><span class="co">#&gt; • TV Episodes: 795,144 rows x 12 columns</span></span>
+<span><span class="co">#&gt; • Rated Media: 1,545,278 rows x 9 columns</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/imdb_tv_episodes.fst</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Cached Size: <span style="font-style: italic;">62.2 MB</span>.</span></span>
 <span><span class="co">#&gt; Storing ./cache_imdb/imdb_rated_media.fst</span></span>
@@ -114,12 +114,12 @@
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rated_media</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 1,545,634</span></span>
+<span><span class="co">#&gt; Rows: 1,545,278</span></span>
 <span><span class="co">#&gt; Columns: 9</span></span>
 <span><span class="co">#&gt; $ titleType      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "movie"<span style="color: #949494;">, </span>"movie"<span style="color: #949494;">, </span>"movie"<span style="color: #949494;">, </span>"movie"<span style="color: #949494;">, </span>"tvSeries"<span style="color: #949494;">, </span>"movie"…</span></span>
 <span><span class="co">#&gt; $ title          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "The Shawshank Redemption"<span style="color: #949494;">, </span>"The Dark Knight"<span style="color: #949494;">, </span>"Incepti…</span></span>
 <span><span class="co">#&gt; $ averageRating  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 9.3<span style="color: #949494;">, </span>9.0<span style="color: #949494;">, </span>8.8<span style="color: #949494;">, </span>8.8<span style="color: #949494;">, </span>9.2<span style="color: #949494;">, </span>8.8<span style="color: #949494;">, </span>8.7<span style="color: #949494;">, </span>8.9<span style="color: #949494;">, </span>9.5<span style="color: #949494;">, </span>8.7<span style="color: #949494;">, </span>9.2<span style="color: #949494;">, </span>…</span></span>
-<span><span class="co">#&gt; $ numVotes       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3040500<span style="color: #949494;">, </span>3017294<span style="color: #949494;">, </span>2680245<span style="color: #949494;">, </span>2461859<span style="color: #949494;">, </span>2430293<span style="color: #949494;">, </span>2376582<span style="color: #949494;">, </span>2…</span></span>
+<span><span class="co">#&gt; $ numVotes       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3040199<span style="color: #949494;">, </span>3016995<span style="color: #949494;">, </span>2679961<span style="color: #949494;">, </span>2461562<span style="color: #949494;">, </span>2429979<span style="color: #949494;">, </span>2376341<span style="color: #949494;">, </span>2…</span></span>
 <span><span class="co">#&gt; $ genres         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Drama"<span style="color: #949494;">, </span>"Action,Crime,Drama"<span style="color: #949494;">, </span>"Action,Adventure,Sci-Fi…</span></span>
 <span><span class="co">#&gt; $ runtimeMinutes <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 142<span style="color: #949494;">, </span>152<span style="color: #949494;">, </span>148<span style="color: #949494;">, </span>139<span style="color: #949494;">, </span>60<span style="color: #949494;">, </span>142<span style="color: #949494;">, </span>169<span style="color: #949494;">, </span>154<span style="color: #949494;">, </span>45<span style="color: #949494;">, </span>136<span style="color: #949494;">, </span>175<span style="color: #949494;">, </span>17…</span></span>
 <span><span class="co">#&gt; $ startYear      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1994<span style="color: #949494;">, </span>2008<span style="color: #949494;">, </span>2010<span style="color: #949494;">, </span>1999<span style="color: #949494;">, </span>2011<span style="color: #949494;">, </span>1994<span style="color: #949494;">, </span>2014<span style="color: #949494;">, </span>1994<span style="color: #949494;">, </span>2008<span style="color: #949494;">, </span>1…</span></span>
@@ -141,16 +141,16 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span></span>
 <span><span class="co">#&gt;    titleType    count  </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> tvEpisode    795,356</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> movie        322,089</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> short        158,148</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tvSeries     103,868</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> video        56,570 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> tvMovie      55,343 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> tvMiniSeries 20,392 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> videoGame    18,144 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> tvSpecial    13,287 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> tvShort      2,437</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> tvEpisode    795,144</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> movie        322,033</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> short        158,114</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tvSeries     103,846</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> video        56,561 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> tvMovie      55,342 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> tvMiniSeries 20,379 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> videoGame    18,137 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> tvSpecial    13,286 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> tvShort      2,436</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Reorder titleTypes for future plots</span></span>
 <span><span class="va">rated_media</span><span class="op">$</span><span class="va">titleType</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">rated_media</span><span class="op">$</span><span class="va">titleType</span>,</span>
@@ -259,86 +259,86 @@ minutes</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">80</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         tconst                                     title averageRating numVotes</span></span>
 <span><span class="co">#&gt;         &lt;char&gt;                                    &lt;char&gt;         &lt;num&gt;    &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1:  tt0944947                           Game of Thrones           9.2  2430293</span></span>
-<span><span class="co">#&gt;  2:  tt0903747                              Breaking Bad           9.5  2326398</span></span>
-<span><span class="co">#&gt;  3:  tt4574334                           Stranger Things           8.6  1442682</span></span>
-<span><span class="co">#&gt;  4:  tt0108778                                   Friends           8.9  1143222</span></span>
-<span><span class="co">#&gt;  5:  tt1520211                          The Walking Dead           8.1  1140503</span></span>
-<span><span class="co">#&gt;  6:  tt1475582                                  Sherlock           9.0  1047051</span></span>
-<span><span class="co">#&gt;  7:  tt7366338                                 Chernobyl           9.3   947765</span></span>
-<span><span class="co">#&gt;  8:  tt0898266                       The Big Bang Theory           8.1   907160</span></span>
-<span><span class="co">#&gt;  9:  tt0773262                                    Dexter           8.6   842059</span></span>
-<span><span class="co">#&gt; 10:  tt1190634                                  The Boys           8.6   775434</span></span>
-<span><span class="co">#&gt; 11:  tt0386676                                The Office           9.0   773908</span></span>
-<span><span class="co">#&gt; 12:  tt0460649                     How I Met Your Mother           8.3   758601</span></span>
-<span><span class="co">#&gt; 13:  tt3032476                          Better Call Saul           9.0   729603</span></span>
-<span><span class="co">#&gt; 14:  tt2442560                            Peaky Blinders           8.7   710127</span></span>
-<span><span class="co">#&gt; 15:  tt2356777                            True Detective           8.9   701822</span></span>
-<span><span class="co">#&gt; 16:  tt2085059                              Black Mirror           8.7   691077</span></span>
-<span><span class="co">#&gt; 17: tt10919420                                Squid Game           8.0   661967</span></span>
-<span><span class="co">#&gt; 18:  tt2861424                            Rick and Morty           9.1   648472</span></span>
-<span><span class="co">#&gt; 19:  tt3581920                            The Last of Us           8.7   646459</span></span>
-<span><span class="co">#&gt; 20:  tt0411008                                      Lost           8.3   640230</span></span>
-<span><span class="co">#&gt; 21:  tt0455275                              Prison Break           8.3   626627</span></span>
-<span><span class="co">#&gt; 22:  tt8111088                           The Mandalorian           8.6   623579</span></span>
-<span><span class="co">#&gt; 23:  tt2306299                                   Vikings           8.5   616643</span></span>
-<span><span class="co">#&gt; 24: tt10048342                        The Queen's Gambit           8.5   616030</span></span>
-<span><span class="co">#&gt; 25:  tt2560140                           Attack on Titan           9.1   607976</span></span>
-<span><span class="co">#&gt; 26:  tt5180504                               The Witcher           7.9   595062</span></span>
-<span><span class="co">#&gt; 27:  tt6468322                               Money Heist           8.2   570392</span></span>
-<span><span class="co">#&gt; 28:  tt0185906                          Band of Brothers           9.4   561175</span></span>
-<span><span class="co">#&gt; 29:  tt0412142                                     House           8.7   557262</span></span>
-<span><span class="co">#&gt; 30:  tt0475784                                 Westworld           8.4   547759</span></span>
-<span><span class="co">#&gt; 31:  tt1856010                            House of Cards           8.6   546569</span></span>
-<span><span class="co">#&gt; 32:  tt0141842                              The Sopranos           9.2   523312</span></span>
-<span><span class="co">#&gt; 33:  tt1442437                             Modern Family           8.5   515156</span></span>
-<span><span class="co">#&gt; 34:  tt1632701                                     Suits           8.4   514399</span></span>
-<span><span class="co">#&gt; 35:  tt0460681                              Supernatural           8.4   511147</span></span>
-<span><span class="co">#&gt; 36:  tt3322312                                 Daredevil           8.6   504703</span></span>
-<span><span class="co">#&gt; 37:  tt2707408                                    Narcos           8.7   500383</span></span>
-<span><span class="co">#&gt; 38:  tt5753856                                      Dark           8.7   490501</span></span>
-<span><span class="co">#&gt; 39: tt11198330                       House of the Dragon           8.3   474880</span></span>
-<span><span class="co">#&gt; 40:  tt2193021                                     Arrow           7.5   454000</span></span>
-<span><span class="co">#&gt; 41:  tt0096697                              The Simpsons           8.6   453041</span></span>
-<span><span class="co">#&gt; 42:  tt2802850                                     Fargo           8.8   444329</span></span>
-<span><span class="co">#&gt; 43:  tt9140554                                      Loki           8.2   443437</span></span>
-<span><span class="co">#&gt; 44:  tt4158110                                 Mr. Robot           8.5   440699</span></span>
-<span><span class="co">#&gt; 45:  tt7631058 The Lord of the Rings: The Rings of Power           6.9   424837</span></span>
-<span><span class="co">#&gt; 46:  tt0877057                                Death Note           8.9   424043</span></span>
-<span><span class="co">#&gt; 47:  tt0121955                                South Park           8.7   422270</span></span>
-<span><span class="co">#&gt; 48: tt13443470                                 Wednesday           8.0   414912</span></span>
-<span><span class="co">#&gt; 49:  tt0417299                Avatar: The Last Airbender           9.3   405480</span></span>
-<span><span class="co">#&gt; 50:  tt0306414                                  The Wire           9.3   402661</span></span>
-<span><span class="co">#&gt; 51: tt10986410                                 Ted Lasso           8.8   399497</span></span>
-<span><span class="co">#&gt; 52:  tt9140560                               WandaVision           7.9   395322</span></span>
-<span><span class="co">#&gt; 53: tt11126994                                    Arcane           9.0   393887</span></span>
-<span><span class="co">#&gt; 54:  tt2467372                        Brooklyn Nine-Nine           8.4   393541</span></span>
-<span><span class="co">#&gt; 55:  tt7767422                             Sex Education           8.2   378389</span></span>
-<span><span class="co">#&gt; 56:  tt0182576                                Family Guy           8.1   377113</span></span>
-<span><span class="co">#&gt; 57:  tt3107288                                 The Flash           7.5   376771</span></span>
-<span><span class="co">#&gt; 58:  tt4052886                                   Lucifer           8.0   375248</span></span>
-<span><span class="co">#&gt; 59:  tt5071412                                     Ozark           8.5   369530</span></span>
-<span><span class="co">#&gt; 60:  tt1796960                                  Homeland           8.3   369431</span></span>
-<span><span class="co">#&gt; 61:  tt0098904                                  Seinfeld           8.9   368471</span></span>
-<span><span class="co">#&gt; 62:  tt5290382                                Mindhunter           8.6   366892</span></span>
-<span><span class="co">#&gt; 63:  tt1405406                       The Vampire Diaries           7.7   366503</span></span>
-<span><span class="co">#&gt; 64:  tt0413573                            Grey's Anatomy           7.6   359128</span></span>
-<span><span class="co">#&gt; 65:  tt1844624                     American Horror Story           7.9   354462</span></span>
-<span><span class="co">#&gt; 66:  tt1124373                           Sons of Anarchy           8.5   339891</span></span>
-<span><span class="co">#&gt; 67:  tt0367279                      Arrested Development           8.6   334513</span></span>
-<span><span class="co">#&gt; 68:  tt7335184                                       You           7.7   333211</span></span>
-<span><span class="co">#&gt; 69:  tt2372162                   Orange Is the New Black           8.0   328724</span></span>
-<span><span class="co">#&gt; 70:  tt1837492                            13 Reasons Why           7.4   328409</span></span>
-<span><span class="co">#&gt; 71:  tt7660850                                Succession           8.8   316359</span></span>
-<span><span class="co">#&gt; 72: tt14392248                                 Aspirants           9.2   315528</span></span>
-<span><span class="co">#&gt; 73: tt11280740                                 Severance           8.7   313724</span></span>
-<span><span class="co">#&gt; 74: tt12637874                                   Fallout           8.3   311850</span></span>
-<span><span class="co">#&gt; 75:  tt1586680                                 Shameless           8.5   310366</span></span>
-<span><span class="co">#&gt; 76:  tt6763664                The Haunting of Hill House           8.5   309484</span></span>
-<span><span class="co">#&gt; 77:  tt1312171                      The Umbrella Academy           7.8   303502</span></span>
-<span><span class="co">#&gt; 78:  tt1439629                                 Community           8.5   303212</span></span>
-<span><span class="co">#&gt; 79:  tt1266020                      Parks and Recreation           8.6   302575</span></span>
-<span><span class="co">#&gt; 80:  tt0388629                                 One Piece           9.0   295937</span></span>
+<span><span class="co">#&gt;  1:  tt0944947                           Game of Thrones           9.2  2429979</span></span>
+<span><span class="co">#&gt;  2:  tt0903747                              Breaking Bad           9.5  2325926</span></span>
+<span><span class="co">#&gt;  3:  tt4574334                           Stranger Things           8.6  1442375</span></span>
+<span><span class="co">#&gt;  4:  tt0108778                                   Friends           8.9  1143083</span></span>
+<span><span class="co">#&gt;  5:  tt1520211                          The Walking Dead           8.1  1140339</span></span>
+<span><span class="co">#&gt;  6:  tt1475582                                  Sherlock           9.0  1046955</span></span>
+<span><span class="co">#&gt;  7:  tt7366338                                 Chernobyl           9.3   947576</span></span>
+<span><span class="co">#&gt;  8:  tt0898266                       The Big Bang Theory           8.1   907081</span></span>
+<span><span class="co">#&gt;  9:  tt0773262                                    Dexter           8.6   841895</span></span>
+<span><span class="co">#&gt; 10:  tt1190634                                  The Boys           8.6   775267</span></span>
+<span><span class="co">#&gt; 11:  tt0386676                                The Office           9.0   773765</span></span>
+<span><span class="co">#&gt; 12:  tt0460649                     How I Met Your Mother           8.3   758524</span></span>
+<span><span class="co">#&gt; 13:  tt3032476                          Better Call Saul           9.0   729400</span></span>
+<span><span class="co">#&gt; 14:  tt2442560                            Peaky Blinders           8.7   709967</span></span>
+<span><span class="co">#&gt; 15:  tt2356777                            True Detective           8.9   701729</span></span>
+<span><span class="co">#&gt; 16:  tt2085059                              Black Mirror           8.7   690817</span></span>
+<span><span class="co">#&gt; 17: tt10919420                                Squid Game           8.0   661833</span></span>
+<span><span class="co">#&gt; 18:  tt2861424                            Rick and Morty           9.1   648320</span></span>
+<span><span class="co">#&gt; 19:  tt3581920                            The Last of Us           8.7   645346</span></span>
+<span><span class="co">#&gt; 20:  tt0411008                                      Lost           8.3   640131</span></span>
+<span><span class="co">#&gt; 21:  tt0455275                              Prison Break           8.3   626524</span></span>
+<span><span class="co">#&gt; 22:  tt8111088                           The Mandalorian           8.6   623435</span></span>
+<span><span class="co">#&gt; 23:  tt2306299                                   Vikings           8.5   616577</span></span>
+<span><span class="co">#&gt; 24: tt10048342                        The Queen's Gambit           8.5   615903</span></span>
+<span><span class="co">#&gt; 25:  tt2560140                           Attack on Titan           9.1   607727</span></span>
+<span><span class="co">#&gt; 26:  tt5180504                               The Witcher           7.9   595001</span></span>
+<span><span class="co">#&gt; 27:  tt6468322                               Money Heist           8.2   570305</span></span>
+<span><span class="co">#&gt; 28:  tt0185906                          Band of Brothers           9.4   561101</span></span>
+<span><span class="co">#&gt; 29:  tt0412142                                     House           8.7   557130</span></span>
+<span><span class="co">#&gt; 30:  tt0475784                                 Westworld           8.4   547719</span></span>
+<span><span class="co">#&gt; 31:  tt1856010                            House of Cards           8.6   546529</span></span>
+<span><span class="co">#&gt; 32:  tt0141842                              The Sopranos           9.2   523183</span></span>
+<span><span class="co">#&gt; 33:  tt1442437                             Modern Family           8.5   515065</span></span>
+<span><span class="co">#&gt; 34:  tt1632701                                     Suits           8.4   514330</span></span>
+<span><span class="co">#&gt; 35:  tt0460681                              Supernatural           8.4   511077</span></span>
+<span><span class="co">#&gt; 36:  tt3322312                                 Daredevil           8.6   504586</span></span>
+<span><span class="co">#&gt; 37:  tt2707408                                    Narcos           8.7   500299</span></span>
+<span><span class="co">#&gt; 38:  tt5753856                                      Dark           8.7   490379</span></span>
+<span><span class="co">#&gt; 39: tt11198330                       House of the Dragon           8.3   474798</span></span>
+<span><span class="co">#&gt; 40:  tt2193021                                     Arrow           7.5   453980</span></span>
+<span><span class="co">#&gt; 41:  tt0096697                              The Simpsons           8.6   452990</span></span>
+<span><span class="co">#&gt; 42:  tt2802850                                     Fargo           8.8   444290</span></span>
+<span><span class="co">#&gt; 43:  tt9140554                                      Loki           8.2   443309</span></span>
+<span><span class="co">#&gt; 44:  tt4158110                                 Mr. Robot           8.5   440641</span></span>
+<span><span class="co">#&gt; 45:  tt7631058 The Lord of the Rings: The Rings of Power           6.9   424794</span></span>
+<span><span class="co">#&gt; 46:  tt0877057                                Death Note           8.9   423892</span></span>
+<span><span class="co">#&gt; 47:  tt0121955                                South Park           8.7   422219</span></span>
+<span><span class="co">#&gt; 48: tt13443470                                 Wednesday           8.0   414714</span></span>
+<span><span class="co">#&gt; 49:  tt0417299                Avatar: The Last Airbender           9.3   405407</span></span>
+<span><span class="co">#&gt; 50:  tt0306414                                  The Wire           9.3   402591</span></span>
+<span><span class="co">#&gt; 51: tt10986410                                 Ted Lasso           8.8   399371</span></span>
+<span><span class="co">#&gt; 52:  tt9140560                               WandaVision           7.9   395233</span></span>
+<span><span class="co">#&gt; 53: tt11126994                                    Arcane           9.0   393747</span></span>
+<span><span class="co">#&gt; 54:  tt2467372                        Brooklyn Nine-Nine           8.4   393475</span></span>
+<span><span class="co">#&gt; 55:  tt7767422                             Sex Education           8.2   378308</span></span>
+<span><span class="co">#&gt; 56:  tt0182576                                Family Guy           8.1   377080</span></span>
+<span><span class="co">#&gt; 57:  tt3107288                                 The Flash           7.5   376753</span></span>
+<span><span class="co">#&gt; 58:  tt4052886                                   Lucifer           8.0   375193</span></span>
+<span><span class="co">#&gt; 59:  tt5071412                                     Ozark           8.5   369475</span></span>
+<span><span class="co">#&gt; 60:  tt1796960                                  Homeland           8.3   369413</span></span>
+<span><span class="co">#&gt; 61:  tt0098904                                  Seinfeld           8.9   368433</span></span>
+<span><span class="co">#&gt; 62:  tt5290382                                Mindhunter           8.6   366827</span></span>
+<span><span class="co">#&gt; 63:  tt1405406                       The Vampire Diaries           7.7   366468</span></span>
+<span><span class="co">#&gt; 64:  tt0413573                            Grey's Anatomy           7.6   359085</span></span>
+<span><span class="co">#&gt; 65:  tt1844624                     American Horror Story           7.9   354435</span></span>
+<span><span class="co">#&gt; 66:  tt1124373                           Sons of Anarchy           8.5   339847</span></span>
+<span><span class="co">#&gt; 67:  tt0367279                      Arrested Development           8.6   334484</span></span>
+<span><span class="co">#&gt; 68:  tt7335184                                       You           7.7   332800</span></span>
+<span><span class="co">#&gt; 69:  tt2372162                   Orange Is the New Black           8.0   328695</span></span>
+<span><span class="co">#&gt; 70:  tt1837492                            13 Reasons Why           7.4   328363</span></span>
+<span><span class="co">#&gt; 71:  tt7660850                                Succession           8.8   316273</span></span>
+<span><span class="co">#&gt; 72: tt14392248                                 Aspirants           9.2   315520</span></span>
+<span><span class="co">#&gt; 73: tt11280740                                 Severance           8.7   313447</span></span>
+<span><span class="co">#&gt; 74: tt12637874                                   Fallout           8.3   311681</span></span>
+<span><span class="co">#&gt; 75:  tt1586680                                 Shameless           8.5   310307</span></span>
+<span><span class="co">#&gt; 76:  tt6763664                The Haunting of Hill House           8.5   309436</span></span>
+<span><span class="co">#&gt; 77:  tt1312171                      The Umbrella Academy           7.8   303469</span></span>
+<span><span class="co">#&gt; 78:  tt1439629                                 Community           8.5   303193</span></span>
+<span><span class="co">#&gt; 79:  tt1266020                      Parks and Recreation           8.6   302543</span></span>
+<span><span class="co">#&gt; 80:  tt0388629                                 One Piece           9.0   295696</span></span>
 <span><span class="co">#&gt;         tconst                                     title averageRating numVotes</span></span>
 <span><span class="co">#&gt;                         genres runtimeMinutes startYear endYear    titleType</span></span>
 <span><span class="co">#&gt;                         &lt;char&gt;          &lt;num&gt;     &lt;int&gt;   &lt;int&gt;       &lt;fctr&gt;</span></span>
@@ -444,7 +444,7 @@ minutes</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> tt0084987     The Bill                                26     <span style="text-decoration: underline;">2</span>403  <span style="text-decoration: underline;">1</span>984  <span style="text-decoration: underline;">2</span>010</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> tt3444938     The Tonight Show Starring Jimmy F…      12     <span style="text-decoration: underline;">2</span>097  <span style="text-decoration: underline;">2</span>014  <span style="text-decoration: underline;">2</span>025</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tt0185103     WWE Raw                                 33     <span style="text-decoration: underline;">1</span>668  <span style="text-decoration: underline;">1</span>993  <span style="text-decoration: underline;">2</span>025</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> tt3697842     The Late Show with Stephen Colbert      10     <span style="text-decoration: underline;">1</span>655  <span style="text-decoration: underline;">2</span>015  <span style="text-decoration: underline;">2</span>025</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> tt3697842     The Late Show with Stephen Colbert      10     <span style="text-decoration: underline;">1</span>654  <span style="text-decoration: underline;">2</span>015  <span style="text-decoration: underline;">2</span>025</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> tt0458254     The Colbert Report                      12     <span style="text-decoration: underline;">1</span>357  <span style="text-decoration: underline;">2</span>005  <span style="text-decoration: underline;">2</span>014</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> tt0227972     WWE Smackdown!                          27     <span style="text-decoration: underline;">1</span>342  <span style="text-decoration: underline;">1</span>999  <span style="text-decoration: underline;">2</span>025</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> tt1820166     Ridiculousness                          42     <span style="text-decoration: underline;">1</span>309  <span style="text-decoration: underline;">2</span>011  <span style="text-decoration: underline;">2</span>024</span></span>
@@ -491,7 +491,8 @@ minutes</p>
 <span>             <span class="co"># color = episode_rating,</span></span>
 <span>             fill <span class="op">=</span> <span class="va">episode_rating</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>         <span class="co">#COORDINATES USED HERE</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">episode_rating</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">episode_rating</span><span class="op">)</span>,</span>
+<span>            size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">'RdYlGn'</span>,</span>
 <span>                       direction <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                       limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>,</span>
@@ -512,13 +513,13 @@ minutes</p>
 <span>        plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
 <span>        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>        axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>,</span>
-<span>                                 size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>                                 size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="heatmap">Heatmap<a class="anchor" aria-label="anchor" href="#heatmap"></a>
 </h4>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">episode_heatmap</span></span></code></pre></div>
-<p><img src="imdb_data_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p><img src="imdb_data_files/figure-html/episode%20heatmap%20plot-1.png" alt="Episode Heatmap of selected series, colored by IMDB Rating." width="700"></p>
 </div>
 </div>
 <div class="section level3">
