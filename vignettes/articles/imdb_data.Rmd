@@ -10,9 +10,9 @@ knitr::opts_chunk$set(
 ```
 
 # Load Packages and Data
-```{r results=F, collapse=T}
+```{r results=F, collapse=T, warning=F, message=F}
 library(tmdbdata)
-library(tidyverse)
+library(dplyr)
 library(ggplot2)
 library(ggridges)
 library(scales)
@@ -91,7 +91,6 @@ We can see vertical 'stripes' of data in above plot, suggesting that the underly
 rated_media %>% 
   mutate(titleType = fct_rev(as_factor(titleType))) %>% 
   filter(runtimeMinutes < 3*60) %>%
-  # filter(titleType != "tvEpisode") %>%
   ggplot(aes(x=runtimeMinutes, y=titleType, fill = titleType)) + 
   geom_density_ridges(aes(scale = 1.5),
                       show.legend = F)+
@@ -100,7 +99,6 @@ rated_media %>%
                      name = "Runtime (Hours)") + 
   labs(title = "Runtimes") + 
   theme_minimal()
-
 ```
 -   Many **`tvEpisode`**s are either **30**mins, **45**mins, or **1**hr  
     +   Similar trend in **`tvSeries`**

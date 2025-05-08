@@ -12,13 +12,14 @@ Imports:
     askpass,
     dplyr,
     tidyr,
-    glue,
     httr2,
+    rlang,
+    tibble,
     magrittr,
-    purrr,
-    stringr
+    purrr
 Suggests: 
     testthat (>= 3.0.0),
+    withr,
     cli,
     fst,
     R.utils,
