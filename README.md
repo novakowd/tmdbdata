@@ -1,9 +1,4 @@
 
-- [tmdbdata](#tmdbdata)
-  - [Installation](#installation)
-  - [Authentication](#authentication)
-- [Examples](#examples)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # tmdbdata

@@ -73,7 +73,7 @@ base_tmdb_request() %>%
   req_url_query(query = "Avengers")
 ```
 
-> The functions `req_url_path_append()` and `req_url_query()` modified the url to `r base_tmdb_request() %>% req_url_path_append("search", "movie") %>% req_url_query(query = "Avengers") %>% pluck("url")`
+> The functions `req_url_path_append()` and `req_url_query()` modified the url to `r base_tmdb_request() %>% req_url_path_append("search", "movie") %>% req_url_query(query = "Avengers") %>% purrr::pluck("url")`
 
 ------------------------------------------------------------------------
 
