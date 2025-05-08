@@ -31,6 +31,12 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/tmdbdata.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/imdb_data.html">imdb_data</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -96,7 +102,7 @@ Limits Documentation</strong></a>
 <span><span class="co">#&gt;         httr2::req_error(body = tmdb_error_body) %&gt;% httr2::req_user_agent("tmdbdata (https://github.com/novakowd/tmdbdata)") %&gt;% </span></span>
 <span><span class="co">#&gt;         httr2::req_throttle(rate = 40, realm = "https://api.themoviedb.org/3/")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55e88b22a028&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x558de7635720&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:tmdbdata&gt;</span></span></code></pre></div>
 <blockquote>
 <table class="table">
@@ -108,7 +114,7 @@ Limits Documentation</strong></a>
 <th>📝</th>
 <th align="left">default of <code>auth_token = get_auth_token()</code>,
 will <strong>only</strong> work after the environment variable has been
-setup as mentioned <a href="#authentication"><strong>above</strong></a>
+setup as mentioned in <a href="https://novakowd.github.io/tmdbdata/#authentication"><strong>Authentication</strong></a>
 </th>
 </tr></thead>
 <tbody></tbody>
@@ -120,8 +126,8 @@ following objects.</p>
 <p>Running the above <code><a href="../reference/base_tmdb_request.html">base_tmdb_request()</a></code> function generates
 a basic <code>&lt;httr2_request&gt;</code> object:</p>
 <ul>
-<li>Note: normally <code>auth_token</code> should not need to be
-specified if the <a href="https://novakowd.github.io/tmdbdata/#authentication">Authentication</a>
+<li>Normally <code>auth_token</code> should not need to be specified if
+the <a href="https://novakowd.github.io/tmdbdata/#authentication">Authentication</a>
 steps were followed</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -290,8 +296,8 @@ values:</p>
 <span><span class="co">#&gt; [1] 127</span></span></code></pre></div>
 <p>The <code>$results</code> element is a nested list from the
 <code>json</code> response which then uses
-<code>tidyr::unnest_*()</code> to clean the data and get a result in a
-data frame (<code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code>)</p>
+<code><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html" class="external-link">tidyr::unnest_wider()</a></code> to clean the data and get a result in
+a data frame (<code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code>)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>results <span class="op">=</span> <span class="va">body</span><span class="op">$</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html" class="external-link">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -350,6 +356,28 @@ only returns <strong>one</strong> page.</p>
 <span><span class="co">#&gt; $ vote_count        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 28<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>14<span style="color: #949494;">, </span>23<span style="color: #949494;">, </span>64<span style="color: #949494;">, </span>25<span style="color: #949494;">, </span>33<span style="color: #949494;">, </span>24<span style="color: #949494;">, </span>563<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>149<span style="color: #949494;">, </span>4…</span></span></code></pre></div>
 <p>This ‘second page’ table contains the <em>next</em> 20 rows.<br>
 To get all rows we need to repeat this until page = 7</p>
+<p>To combine all of the pages from the search we can simply call the
+wrapper function:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_movies.html">search_movies</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">"Avengers"</span>,</span>
+<span>              auth_token <span class="op">=</span> <span class="fu"><a href="../reference/decrypt_auth_token.html">decrypt_auth_token</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 127</span></span>
+<span><span class="co">#&gt; Columns: 14</span></span>
+<span><span class="co">#&gt; $ adult             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FAL…</span></span>
+<span><span class="co">#&gt; $ backdrop_path     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "/rthMuZfFv4fqEU4JVbgSW9wQ8rs.jpg"<span style="color: #949494;">, </span>"/gHLs7Fy3DzLmLs…</span></span>
+<span><span class="co">#&gt; $ genre_ids         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [28, 12, 878]<span style="color: #949494;">, </span>[878, 28, 12]<span style="color: #949494;">, </span>[12, 28, 878]<span style="color: #949494;">, </span>[12, 8…</span></span>
+<span><span class="co">#&gt; $ id                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 986056<span style="color: #949494;">, </span>24428<span style="color: #949494;">, </span>299536<span style="color: #949494;">, </span>299534<span style="color: #949494;">, </span>99861<span style="color: #949494;">, </span>1003596<span style="color: #949494;">, </span>10035…</span></span>
+<span><span class="co">#&gt; $ original_language <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"<span style="color: #949494;">, </span>"en"…</span></span>
+<span><span class="co">#&gt; $ original_title    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Thunderbolts*"<span style="color: #949494;">, </span>"The Avengers"<span style="color: #949494;">, </span>"Avengers: Infinity…</span></span>
+<span><span class="co">#&gt; $ overview          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "After finding themselves ensnared in a death trap, …</span></span>
+<span><span class="co">#&gt; $ popularity        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 435.3441<span style="color: #949494;">, </span>36.6243<span style="color: #949494;">, </span>34.6673<span style="color: #949494;">, </span>24.3061<span style="color: #949494;">, </span>19.8977<span style="color: #949494;">, </span>18.372…</span></span>
+<span><span class="co">#&gt; $ poster_path       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg"<span style="color: #949494;">, </span>"/RYMX2wcKCBAr24…</span></span>
+<span><span class="co">#&gt; $ release_date      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2025-04-30"<span style="color: #949494;">, </span>"2012-04-25"<span style="color: #949494;">, </span>"2018-04-25"<span style="color: #949494;">, </span>"2019-04-2…</span></span>
+<span><span class="co">#&gt; $ title             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Thunderbolts*"<span style="color: #949494;">, </span>"The Avengers"<span style="color: #949494;">, </span>"Avengers: Infinity…</span></span>
+<span><span class="co">#&gt; $ video             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FALSE<span style="color: #949494;">, </span>FAL…</span></span>
+<span><span class="co">#&gt; $ vote_average      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 7.500<span style="color: #949494;">, </span>7.744<span style="color: #949494;">, </span>8.200<span style="color: #949494;">, </span>8.238<span style="color: #949494;">, </span>7.271<span style="color: #949494;">, </span>0.000<span style="color: #949494;">, </span>0.000<span style="color: #949494;">, </span>6.8…</span></span>
+<span><span class="co">#&gt; $ vote_count        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 563<span style="color: #949494;">, </span>31725<span style="color: #949494;">, </span>30490<span style="color: #949494;">, </span>26301<span style="color: #949494;">, </span>23406<span style="color: #949494;">, </span>0<span style="color: #949494;">, </span>0<span style="color: #949494;">, </span>95<span style="color: #949494;">, </span>724<span style="color: #949494;">, </span>275<span style="color: #949494;">,</span>…</span></span></code></pre></div>
 </div>
 </div>
 </div>
