@@ -7,12 +7,16 @@
 movie_details(movie_id, append_to_response = NULL)
 }
 \arguments{
-\item{movie_id}{Required search parameter, internal TMDB identifier for a movie}
+\item{movie_id}{Required search parameter, internal TMDB identifier for a
+movie}
 
-\item{append_to_response}{\href{https://developer.themoviedb.org/docs/append-to-response}{Optional,} comma separated list of endpoints within this namespace, 20 items max (ex: \code{"videos,images"})}
+\item{append_to_response}{\href{https://developer.themoviedb.org/docs/append-to-response}{Optional,} comma
+separated list of endpoints within this namespace, 20 items max (ex:
+\code{"videos,images"})}
 }
 \value{
-JSON response for the movie details of specified movie
+1 row \code{tibble} containing JSON response details of specified
+movie in columns (25 columns by default, plus any \code{append_to_response})
 }
 \description{
 \href{https://developer.themoviedb.org/reference/movie-details}{Get TMDB movie details}

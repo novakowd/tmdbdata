@@ -2,6 +2,7 @@
 
 export("%>%")
 export(base_tmdb_request)
+export(decrypt_auth_token)
 export(discover_movies)
 export(get_tmdb_response)
 export(movie_details)

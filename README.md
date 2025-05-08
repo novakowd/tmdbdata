@@ -1,9 +1,4 @@
 
-- [tmdbdata](#tmdbdata)
-  - [Installation](#installation)
-  - [Authentication](#authentication)
-- [Examples](#examples)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # tmdbdata
@@ -56,6 +51,10 @@ usethis::edit_r_environ()
 
 > `set_auth_token()` will also set the `TMDB_AUTH_TOKEN` environment
 > variable, but it is only specific to the session you’re working in
+
+The package’s functions can now be used as the default argument
+`auth_token = get_auth_token()` will automatically get this environment
+variable
 
 ------------------------------------------------------------------------
 

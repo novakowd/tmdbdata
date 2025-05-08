@@ -1,8 +1,5 @@
 ---
-output: 
-  github_document:
-    toc: true
-    toc_depth: 3
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -63,7 +60,9 @@ usethis::edit_r_environ()
 # then save the file
 ```
 
-> `set_auth_token()` will also set the `TMDB_AUTH_TOKEN` environment variable, but it is only specific to the session you're working in
+> `set_auth_token()` will also set the `TMDB_AUTH_TOKEN` environment variable, but it is only specific to the session you're working in  
+
+The package's functions can now be used as the default argument `auth_token = get_auth_token()` will automatically get this environment variable
 
 ***
 
