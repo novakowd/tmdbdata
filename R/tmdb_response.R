@@ -14,7 +14,7 @@ get_tmdb_response <- function(path_args = NULL,
     httr2::req_url_path_append(path_args) %>%
     httr2::req_url_query(...) %>%
     httr2::req_perform() %>%
-    httr2::resp_body_json(simplifyVector = T)
+    httr2::resp_body_json()
 }
 
 

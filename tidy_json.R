@@ -13,10 +13,10 @@ avengers_json <- avengers_response %>%
   resp_body_json()
 
 avengers_json %>%
-  tibble(response = .) %>%
+  tibble("reponse" = .) %>%
   slice(2) %>%
-  unnest_longer(response) %>%
-  unnest_wider(response)
+  unnest_longer(reponse) %>%
+  unnest_wider(reponse)
 
 
 
@@ -29,4 +29,9 @@ infwar_json <- infwar_response %>%
   resp_body_json()
 
 infwars_df <- infwar_json %>%
-  data.frame() %>% tibble()
+  list() %>%
+  tibble(response = .) %>%
+  unnest_wider(response)
+
+
+test <- movie_details(299536)

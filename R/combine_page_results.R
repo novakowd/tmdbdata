@@ -11,7 +11,7 @@ combine_page_results <- function(.f,
   )
 
   # Extract First Page Results
-  data <- first_page_response$results
+  data <- get_page_results(first_page_response)
 
   # Results from other Pages (if applicable)
   if (total_pages > 1) {
@@ -35,8 +35,16 @@ loop_through_pages <- function(.f,
     \(x) {
       args$page <- x
       do.call(.f, args) %>%
-        purrr::pluck("results")
+        get_page_results()
     }
   ) %>%
     purrr::list_rbind()
+}
+
+
+get_page_results <- function(response_list){
+   tibble::tibble("response" = response_list) %>%
+    dplyr::slice(2) %>%
+    tidyr::unnest_longer(response) %>%
+    tidyr::unnest_wider(response)
 }
