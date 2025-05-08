@@ -1,3 +1,4 @@
+#' @export
 load_imdb_data <- function(use_cached_data = T,
                            cache_results = T,
                            cache_dir = "cache_imdb/"){

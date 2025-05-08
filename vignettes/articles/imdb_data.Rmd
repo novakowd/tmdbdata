@@ -1,0 +1,270 @@
+---
+title: "imdb_data"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Load Packages and Data
+```{r results=F, collapse=T}
+library(tmdbdata)
+library(tidyverse)
+library(ggplot2)
+library(ggridges)
+library(scales)
+```
+
+```{r results=F, warning=F}
+imdb_data <- load_imdb_data()
+rated_media <- imdb_data$rated_media %>% mutate(runtimeMinutes = as.double(runtimeMinutes))
+tv_episodes <- imdb_data$tv_episodes
+```
+
+# Determine data structure
+```{r}
+rated_media %>% glimpse()
+```
+# Number of observations
+```{r}
+count_by_type <- rated_media %>% 
+  group_by(titleType) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  mutate(count = count %>%
+           prettyNum(big.mark = ","))
+
+count_by_type
+```
+
+
+```{r}
+# Reorder titleTypes for future plots
+rated_media$titleType <- factor(rated_media$titleType,
+                                levels = count_by_type$titleType)
+```
+
+## Rating vs Votes
+```{r fig.width=8}
+rated_media %>% 
+  ggplot(aes(x=numVotes, y=averageRating)) + 
+  geom_bin_2d()+
+  scale_x_log10(labels = label_comma()) + 
+  scale_y_continuous(breaks = seq(0,10,2))+
+  scale_fill_viridis_c(option = 'mako',
+                       labels = label_comma(),
+                       transform = scales::transform_log10()) +
+  labs(title = "Rating vs #Votes") +
+  facet_wrap(~ titleType,
+             ncol = 3)
+
+```
+## Rating vs Runtime
+```{r fig.width=8}
+rated_media %>% 
+  filter(runtimeMinutes < 3*60) %>% 
+  # filter(titleType != "tvEpisode") %>%
+  ggplot(aes(x=runtimeMinutes, y=averageRating)) + 
+  geom_bin_2d()+
+  scale_x_continuous(breaks = seq(0,300,60),
+                     labels = paste0(0:5,"h"),
+                     name = "Runtime (Hours)") + 
+  scale_y_continuous(breaks = seq(0,10,2))+
+  scale_fill_viridis_c(option = 'rocket',
+                       labels = label_comma(),
+                       transform = scales::transform_log10()) +
+  labs(title = "Rating vs Runtime") +
+  facet_wrap(~ titleType,
+             ncol = 3)
+
+```
+
+
+# Distrubutions of parameteres
+We can see vertical 'stripes' of data in above plot, suggesting that the underlying distributions may be of interest.
+
+## Runtime
+```{r message=F, fig.width=8}
+rated_media %>% 
+  mutate(titleType = fct_rev(as_factor(titleType))) %>% 
+  filter(runtimeMinutes < 3*60) %>%
+  # filter(titleType != "tvEpisode") %>%
+  ggplot(aes(x=runtimeMinutes, y=titleType, fill = titleType)) + 
+  geom_density_ridges(aes(scale = 1.5),
+                      show.legend = F)+
+  scale_x_continuous(breaks = seq(0,300,60),
+                     labels = paste0(0:5,"h"),
+                     name = "Runtime (Hours)") + 
+  labs(title = "Runtimes") + 
+  theme_minimal()
+
+```
+-   Many **`tvEpisode`**s are either **30**mins, **45**mins, or **1**hr  
+    +   Similar trend in **`tvSeries`**
+-   Most **`movie`**s are ~**1:30 ± 30**mins
+-   **`short`**s and **`tvShort`**s don't normally exceed 30 minutes
+
+
+## Release Year
+```{r warning=F, message=F,fig.width=8}
+rated_media %>% 
+  mutate(titleType = fct_rev(as_factor(titleType))) %>% 
+  filter(startYear > 1950) %>%
+  ggplot(aes(x=startYear, 
+             y=titleType, 
+             fill = titleType)) + 
+  geom_density_ridges(aes(scale = 1.3),
+                      show.legend = F)+
+  scale_x_continuous(breaks = seq(1950,2020,10),
+                     name = "Release Year") + 
+  labs(title = "Release Year") + 
+  theme_minimal()
+```
+
+# TV Episodes
+## Top series (by #votes)
+```{r}
+rated_media %>% 
+  filter(grepl('Series',titleType)) %>% 
+  select(tconst, everything(), -titleType, titleType) %>% 
+  head(80)
+```
+
+## Most Episodes
+```{r warning=F, message=F}
+tv_episodes %>%
+  group_by(tconst_series, series_name) %>% 
+  summarize(seasons = length(unique(seasonNumber)),
+            episodes = n(),
+            start = min(episode_year, na.rm = T),
+            last = max(episode_year, na.rm = T)) %>% 
+  arrange(desc(episodes)) %>% 
+  ungroup() %>% 
+  head(80)
+```
+
+## Episode Heatmap
+```{r fig.width=12}
+series_id <- "tt0096697" # id for "The Simpsons"
+
+series_episodes <- tv_episodes %>% 
+  filter(tconst_series == series_id,
+         episodeNumber > 0) %>% 
+  arrange(seasonNumber,episodeNumber)
+
+# Add in x and y coordinates to draw boxes
+plot_eps <- series_episodes %>% 
+  select(series_name:episode_rating) %>% 
+  mutate(x_start = episodeNumber - 0.5,
+         x_end = episodeNumber + 0.5,
+         y_start = seasonNumber - 0.5,
+         y_end = seasonNumber + 0.5) %>% 
+  pivot_longer(c(x_start,x_end),
+               names_to = NULL,
+               values_to = "x") %>% 
+  pivot_longer(c(y_start,y_end),
+               names_to = NULL,
+               values_to = "y") %>% 
+  group_by(seasonNumber, episodeNumber, episode_name) %>% 
+  mutate(draw_order = case_when(x == min(x) & y == min(y) ~ 1,
+                                x == min(x) & y == max(y) ~ 2,
+                                x == max(x) & y == max(y) ~ 3,
+                                x == max(x) & y == min(y) ~ 4)) %>% 
+  arrange(seasonNumber, episodeNumber, draw_order)
+  
+  
+plot_eps %>% 
+  ggplot(aes(x=episodeNumber,
+             y=seasonNumber,
+             group = paste(seasonNumber, episodeNumber),
+             # color = episode_rating,
+             fill = episode_rating)) + 
+  geom_polygon(aes(x=x, y=y)) +         #COORDINATES USED HERE
+  geom_text(aes(label = episode_rating)) + 
+  scale_fill_distiller(palette = 'RdYlGn',
+                       direction = 1,
+                       limits = c(5,10),
+                       label = label_number(accuracy = 1),
+                       name = 'IMDB Rating') + 
+  scale_x_continuous(breaks = seq(1, max(series_episodes$episodeNumber),1),
+                     name = "Episode") +  
+  scale_y_reverse(breaks = 1:max(series_episodes$seasonNumber),
+                  name = "Season") + 
+  labs(title = series_episodes$series_name[1]) + 
+  theme_minimal() + 
+  theme(axis.line = element_blank(),
+        plot.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.major.x = element_line(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.title = element_text(size = 20, face = "bold"),
+        axis.title = element_text(size = 20),
+        axis.text = element_text(face = "bold",
+                                 size = 15))
+
+```
+
+## Top episodes:
+```{r fig.width=8}
+topten_episodes <- series_episodes %>% 
+  arrange(desc(episode_rating)) %>% 
+  mutate(season_episode = paste0(seasonNumber,
+                                 "–",
+                                 episodeNumber)) %>% 
+  select(season_episode,
+         episode_name,
+         episode_rating,
+         numVotes,
+         episode_year) %>% 
+  head(20)
+
+ymin <- 5
+topten_episodes %>% 
+  mutate(ratingoffset = episode_rating - ymin,
+         season_episode = factor(season_episode, 
+                                 levels = season_episode)) %>% 
+  ggplot(aes(x=season_episode, 
+             y = ratingoffset, 
+             fill = episode_rating)) +
+  geom_col(color = 'black') +
+  geom_text(aes(label = episode_name,
+                y=0.1,
+                angle = 90,
+                hjust = 0))+
+  geom_text(aes(label = episode_rating,
+                vjust = -0.2))+
+  scale_y_continuous(labels = function(n) n + ymin,
+                     name = "Rating") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   vjust = 0.8))+
+  scale_fill_distiller(palette = 'RdYlGn',
+                       direction = 1,
+                       limits = c(5,10),
+                       label = label_number(accuracy = 1),
+                       name = 'IMDB Rating')
+```
+
+## Season Ratings:
+```{r}
+season_ratings <- series_episodes %>% 
+  group_by(seasonNumber) %>% 
+  summarize(rating = mean(episode_rating) %>% round(1))
+
+ymin <- 5
+season_ratings %>% 
+  mutate(ratingoffset = rating - ymin) %>% 
+  ggplot(aes(x = seasonNumber, y = ratingoffset, fill = rating)) + 
+  geom_col(color = 'black') +
+  scale_y_continuous(labels = function(n) n + ymin,
+                     name = 'Rating') +
+  scale_fill_distiller(palette = 'RdYlGn',
+                       direction = 1,
+                       limits = c(5,10),
+                       label = label_number(accuracy = 1),
+                       name = 'IMDB Rating') 
+```
+

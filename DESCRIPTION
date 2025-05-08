@@ -29,3 +29,4 @@ Suggests:
 Config/testthat/edition: 3
 URL: https://novakowd.github.io/tmdbdata/
 VignetteBuilder: knitr
+Config/Needs/website: rmarkdown
