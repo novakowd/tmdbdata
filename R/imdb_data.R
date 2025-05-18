@@ -276,9 +276,9 @@ load_imdb_table <- function(file_name = c("title_basics",
       data <- fst::read_fst(cache_path)
 
       dl_time <- difftime(Sys.time(), start_time) %>% round(2)
-      cli::cli_alert_success("Loaded in: {.emph
-                             {difftime(Sys.time(), start_time) %>%
-                             round(2)} {units(dl_time)}}")
+      # cli::cli_alert_success("Loaded in: {.emph
+      #                        {difftime(Sys.time(), start_time) %>%
+      #                        round(2)} {units(dl_time)}}")
       return(data)
     }
 
@@ -286,14 +286,16 @@ load_imdb_table <- function(file_name = c("title_basics",
       display_cache_info_message <- function(cache_path){
         fsize <- file.size(cache_path)
 
-        cli::cli_alert_info(
-          "Loading {.envvar {cache_path}}",
+        cli::cli_progress_step(
+          "Loading {.emph {round(fsize/1024/1024,1)} MB}
+          from {.envvar {cache_path}} - Last Updated:
+          {.emph {cache_date({cache_path})}}",
           wrap = T
         )
-        cli::cli_li("Last updated:
-                    {.emph {cache_date({cache_path})}}")
-        cli::cli_li("Cached Size:
-                    {.emph {round(fsize/1024/1024,1)} MB}.")
+        # cli::cli_li("Last updated:
+        #             {.emph {cache_date({cache_path})}}")
+        # cli::cli_li("Cached Size:
+        #             {.emph {round(fsize/1024/1024,1)} MB}.")
       }
 
       cache_date <- function(cache_path){
@@ -329,14 +331,19 @@ load_imdb_table <- function(file_name = c("title_basics",
       withr::local_options(list(timeout = 4*60)) # increase timeout to 4 mins
 
       # DOWNLOAD FILE
-      start_time <- Sys.time()
+      msg <- ""
+      cli::cli_progress_step(
+        "Download {.emph {url}}{msg}"
+      )
+      cli::cli_progress_update()
       utils::download.file(url,
-                           destfile)
+                           destfile,
+                           quiet = T)
 
-      dl_time <- difftime(Sys.time(), start_time) %>% round(2)
-      cli::cli_alert_success("Downloaded in: {.emph {dl_time}
-                             {units(dl_time)}}")
+      fsize <- file.size(destfile)
+      msg <- glue::glue(" - {round(fsize/1024/1024,1)} MB")
 
+      cli::cli_progress_update()
     }
 
     {
@@ -348,39 +355,48 @@ load_imdb_table <- function(file_name = c("title_basics",
     }
 
     unzip_imdb_gz_file <- function(file_path){
-      cli::cli_text("Unzipping .gz file...")
+      cli::cli_progress_step("Unzip .gz file")
       R.utils::gunzip(file_path, remove = F)
     }
 
     read_tsv_file <- function(file_path){
-      fsize <- file.size(file_path)
+      # fsize <- file.size(file_path)
 
-      cli::cli_alert_success(".tsv Size: {.emph
-                             {round(fsize/1024/1024,1)} MB}.")
+      # cli::cli_alert_success(".tsv Size: {.emph
+      #                        {round(fsize/1024/1024,1)} MB}.")
 
-      cli::cli_text("Reading .tsv file...")
+      msg <- ""
+      cli::cli_progress_step("Read .tsv file {msg} ")
+      cli::cli_progress_update()
       data <- data.table::fread(file_path,
-                                quote = "")
+                                quote = "",
+                                showProgress = F)
 
       object_size <- utils::object.size(data)
+      msg <- glue::glue("- {dim(data)[1] %>%
+                        prettyNum(big.mark = ',')} rows x
+                        {dim(data)[2]} columns")
 
-      cli::cli_li("R Object Size:
-                  {.emph {round(object_size/1024/1024,1)} MB}. -
-                  {dim(data)[1] %>% prettyNum(big.mark = ',')} rows x
-                  {dim(data)[2]} columns")
+      cli::cli_progress_update()
+      # cli::cli_li("R Object Size:
+      #             {.emph {round(object_size/1024/1024,1)} MB}. -
+      #             {dim(data)[1] %>% prettyNum(big.mark = ',')} rows x
+      #             {dim(data)[2]} columns")
 
       return(data)
     }
 
     cache_imdb_table <- function(data,
                                  cache_path){
-      cli::cli_text("Storing ./{cache_path}")
+      msg <- ""
+      cli::cli_progress_step("Save ./{cache_path} {.emph {msg}}")
+      cli::cli_progress_update()
+
       fst::write_fst(data, path = cache_path)
 
       fsize <- file.size(cache_path)
-
-      cli::cli_alert_success("Cached Size: {.emph
-                             {round(fsize/1024/1024,1)} MB}.")
+      msg <- glue::glue("- {round(fsize/1024/1024,1)} MB.")
+      cli::cli_progress_update()
     }
 
   }
